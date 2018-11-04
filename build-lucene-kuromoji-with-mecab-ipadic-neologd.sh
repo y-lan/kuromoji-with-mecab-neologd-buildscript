@@ -55,7 +55,7 @@ DEFAULT_INSTALL_ADJECTIVE_EXT=0
 INSTALL_ADJECTIVE_EXT=${DEFAULT_INSTALL_ADJECTIVE_EXT}
 
 ## Lucene Target Tag
-DEFAULT_LUCENE_VERSION_TAG=releases/lucene-solr/7.4.0
+DEFAULT_LUCENE_VERSION_TAG=releases/lucene-solr/5.5.4
 LUCENE_VERSION_TAG=${DEFAULT_LUCENE_VERSION_TAG}
 
 ## Kuromoji build max heapsize
@@ -192,18 +192,19 @@ NEOLOGD_VERSION_DATE=`echo ${NEOLOGD_DIRNAME} | perl -wp -e 's!.+-(\d+)!$1!'`
 cd ${KUROMOJI_NEOLOGD_BUILD_WORK_DIR}
 
 logging lucene INFO 'Lucene Repository Clone.'
+
 if [ ! -e lucene-solr ]; then
     git clone https://github.com/apache/lucene-solr.git
-else
-    cd lucene-solr
-    git checkout *
-    git checkout master
-    git fetch origin
-    git reset --hard origin/master
-    git status -s | grep '^?' | perl -wn -e 's!^\?+ ([^ ]+)!git clean -df $1!; system("$_")'
-    ant clean
-    git pull --tags
-    cd ..
+# else
+#     cd lucene-solr
+#     git checkout *
+#     git checkout master
+#     git fetch origin
+#     git reset --hard origin/master
+#     git status -s | grep '^?' | perl -wn -e 's!^\?+ ([^ ]+)!git clean -df $1!; system("$_")'
+#     ant clean
+#     git pull --tags
+#     cd ..
 fi
 
 cd lucene-solr
